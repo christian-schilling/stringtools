@@ -5,7 +5,7 @@
 #include <functional>
 #include <cstdio>
 
-namespace snprintf_ex {
+namespace stringtools{
 template<typename... Args>
 struct Format
 {
@@ -22,28 +22,32 @@ struct Format
         },std::placeholders::_1,args...);
     }
     std::function<std::string(char const*)> f;
+
+    std::string operator () (std::string const& s) const
+    {
+        return f(s.c_str());
+    }
 };
 
 }
 
 template<typename... Args>
-snprintf_ex::Format<Args...> format(Args... args)
+stringtools::Format<Args...> format(Args... args)
 {
-    return snprintf_ex::Format<Args...>(args...);
+    return stringtools::Format<Args...>(args...);
 }
 
 
 template<typename F>
 std::string operator % (std::string const& s, F const& f)
 {
-    return f.f(s.c_str());
+    return f(s);
 }
 
 template<typename F>
 std::string operator % (char const*const s, F const& f)
 {
-    return f.f(s);
+    return f(s);
 }
-
 
 #endif
