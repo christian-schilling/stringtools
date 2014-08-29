@@ -3,6 +3,8 @@
 
 #include <string>
 
+namespace str{
+
 class join
 {
     std::string seperator;
@@ -29,5 +31,6 @@ public:
     }
 };
 
+}
 
 #endif

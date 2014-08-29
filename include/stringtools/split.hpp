@@ -3,6 +3,8 @@
 
 #include <string>
 
+namespace str{
+
 class split
 {
     std::string seperator;
@@ -28,5 +30,7 @@ public:
         return v;
     }
 };
+
+}
 
 #endif

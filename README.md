@@ -1,9 +1,17 @@
-#snprintf-ex
+#stringtools
 
-A small C++ wrapper arround snprintf, to make it useable in an expression
+Helpers for common string manipulation tasks in C++.
 
 ##Usage
 
 ```C++
-std::string text = "hello %s" % format("world");
+#include "stringtools/all.hpp"
+using namespace str;
+std::string text = format("hello %s")("world");
+std::vector<std::string> v = split(", ")("hello, world");
+std::string hw = join(" ")(v);
+
+print("abc:",1,2,3);
+// prints:
+// abc: 1 2 3
 ```

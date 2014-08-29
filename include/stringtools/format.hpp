@@ -2,52 +2,69 @@
 #define _7df49b46_cfba_4b93_95ed_8a062f5a3c4b
 
 #include <string>
-#include <functional>
 #include <cstdio>
 
-namespace stringtools{
-template<typename... Args>
-struct Format
-{
-    Format(Args... args)
-    {
-        f = std::bind([](char const*const s, Args... args)->std::string{
-            auto l = snprintf(nullptr, 0, s, args...);
-            if (l > 0) {
-                std::vector<char> out(l+1);
-                snprintf(out.data(), l + 1, s, args...);
-                return out.data();
-            }
-            return "";
-        },std::placeholders::_1,args...);
-    }
-    std::function<std::string(char const*)> f;
+namespace str{
 
-    std::string operator () (std::string const& s) const
+namespace _{
+
+template<typename T>
+struct FilterArgs
+{
+    static T const& filter(T const& t)
     {
-        return f(s.c_str());
+        return t;
     }
 };
 
+template<>
+struct FilterArgs<std::string>
+{
+    static char const* filter(std::string const& t)
+    {
+        return t.c_str();
+    }
+};
+
+template<typename T>
+auto filter_args(T const& t) -> decltype(FilterArgs<T>::filter(t))
+{
+    return FilterArgs<T>::filter(t);
 }
 
-template<typename... Args>
-stringtools::Format<Args...> format(Args... args)
-{
-    return stringtools::Format<Args...>(args...);
 }
 
-
-template<typename F>
-std::string operator % (std::string const& s, F const& f)
+struct format
 {
-    return f(s);
-}
+    std::string const formatstring;
 
-template<typename F>
-std::string operator % (char const*const s, F const& f)
-{
-    return f(s);
+    format(std::string const& formatstring):
+        formatstring(formatstring)
+    {}
+
+    template<typename... Args>
+    std::string operator () (Args const&... args) const
+    {
+        auto const l = snprintf(
+            nullptr,
+            0,
+            formatstring.c_str(),
+            _::filter_args(args)...
+        );
+        if (l > 0) {
+            std::vector<char> out(l+1);
+            snprintf(
+                out.data(),
+                l + 1,
+                formatstring.c_str(),
+                _::filter_args(args)...
+            );
+            return out.data();
+        }
+        return "";
+    }
+};
+
 }
 
 #endif
