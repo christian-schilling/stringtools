@@ -59,6 +59,15 @@ TEST(Print, print)
     str::print("hello");
     str::print("hello","world");
     str::print("hello","world",6);
+
+    std::vector<int> v{1,2,3,4};
+    str::print("values:",v);
+
+    std::map<int,float> m{{1,5},{4,7.7}};
+    str::print("map:",m);
+
+    std::pair<bool,std::string> p{true,"abc"};
+    str::print("pair:",p);
 }
 
 int main(int argc, char **argv) {
