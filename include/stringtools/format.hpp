@@ -45,7 +45,7 @@ struct format
     template<typename... Args>
     std::string operator () (Args const&... args) const
     {
-        auto const l = snprintf(
+        auto const l = std::snprintf(
             nullptr,
             0,
             formatstring.c_str(),
@@ -53,7 +53,7 @@ struct format
         );
         if (l > 0) {
             std::vector<char> out(l+1);
-            snprintf(
+            std::snprintf(
                 out.data(),
                 l + 1,
                 formatstring.c_str(),

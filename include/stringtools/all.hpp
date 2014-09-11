@@ -6,5 +6,7 @@
 #include "stringtools/split.hpp"
 #include "stringtools/join.hpp"
 #include "stringtools/print.hpp"
+#include "stringtools/dump.hpp"
+#include "stringtools/trim.hpp"
 
 #endif

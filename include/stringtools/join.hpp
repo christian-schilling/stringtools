@@ -7,7 +7,7 @@ namespace str{
 
 class join
 {
-    std::string seperator;
+    std::string const seperator;
 
 public:
     join(std::string const& seperator):
@@ -18,14 +18,11 @@ public:
     std::string operator () (Strings const& strings) const
     {
         std::string joined;
-        for(auto const& s: strings){
+        for(std::string const& s: strings){
             if(joined.size()){
                 joined += seperator;
-                joined += s;
             }
-            else{
-                joined += s;
-            }
+            joined += s;
         }
         return joined;
     }

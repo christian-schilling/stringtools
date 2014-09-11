@@ -7,7 +7,7 @@ namespace str{
 
 class split
 {
-    std::string seperator;
+    std::string const seperator;
 
     void _split(std::vector<std::string>& v,std::string const& s) const
     {
