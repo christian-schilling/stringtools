@@ -8,5 +8,6 @@
 #include "stringtools/print.hpp"
 #include "stringtools/dump.hpp"
 #include "stringtools/trim.hpp"
+#include "stringtools/slice.hpp"
 
 #endif

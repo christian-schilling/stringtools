@@ -104,6 +104,31 @@ trim)
     EXPECT_EQ("world!",str::trim(" . hello")(s));
 }
 
+TEST(Slice,slice)
+{
+    char buf[10];
+
+    str::slice(buf,5) = "Hello World!";
+    EXPECT_EQ(std::string("Hell"),buf);
+
+    str::slice(buf) = "Hello World!";
+    EXPECT_EQ(std::string("Hello Wor"),buf);
+
+    str::slice(buf) = "";
+    EXPECT_EQ(std::string(""),buf);
+
+    str::slice(buf) += "H";
+    EXPECT_EQ(std::string("H"),buf);
+    str::slice(buf) += "W";
+    EXPECT_EQ(std::string("HW"),buf);
+
+    str::slice(buf) = std::string("X");
+    EXPECT_EQ(std::string("X"),buf);
+
+    str::slice(buf) += std::string("Y");
+    EXPECT_EQ(std::string("XY"),buf);
+}
+
 int main(int argc, char **argv) {
     ::testing::InitGoogleTest(&argc, argv);
     return RUN_ALL_TESTS();
