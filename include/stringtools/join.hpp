@@ -18,10 +18,12 @@ public:
     std::string operator () (Strings const& strings) const
     {
         std::string joined;
+        bool first = true;
         for(std::string const& s: strings){
-            if(joined.size()){
+            if(!first){
                 joined += seperator;
             }
+            first = false;
             joined += s;
         }
         return joined;
