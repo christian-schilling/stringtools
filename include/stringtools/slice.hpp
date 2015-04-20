@@ -40,7 +40,7 @@ Slice slice(char (&buf)[L])
     return Slice(buf,L);
 }
 
-Slice slice(char* const buf, size_t const length)
+inline Slice slice(char* const buf, size_t const length)
 {
     return Slice(buf,length);
 }
