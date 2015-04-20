@@ -9,5 +9,6 @@
 #include "stringtools/dump.hpp"
 #include "stringtools/trim.hpp"
 #include "stringtools/slice.hpp"
+#include "stringtools/replace.hpp"
 
 #endif

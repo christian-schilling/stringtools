@@ -33,6 +33,11 @@ TEST(String, joining)
         "a##b##ab",
         str::join("##")(std::vector<std::string>{"a","b","ab"})
     );
+
+    EXPECT_EQ(
+        "##b##ab",
+        str::join("##")(std::vector<std::string>{"","b","ab"})
+    );
 }
 
 TEST(String, formating)
@@ -127,6 +132,15 @@ TEST(Slice,slice)
 
     str::slice(buf) += std::string("Y");
     EXPECT_EQ(std::string("XY"),buf);
+}
+
+TEST(Replace,
+replace)
+{
+    std::string s = " ...hello world! ";
+    EXPECT_EQ(",...hello,world!,",str::replace(" ",",")(s));
+    EXPECT_EQ(" ...herro worrd! ",str::replace("l","r")(s));
+    EXPECT_EQ(" ...hello! ",str::replace(" world","")(s));
 }
 
 int main(int argc, char **argv) {
